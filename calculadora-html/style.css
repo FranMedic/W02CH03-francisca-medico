@@ -1,0 +1,61 @@
+body{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 1vw 0;
+    text-align: center;
+    background-image: url('https://cdn.eldeforma.com/wp-content/uploads/2020/04/gato-meme-llorando.jpg');
+    
+}
+header{
+    font-size: 2vw;
+    background-color: rgba(0, 0, 0, 0.75);
+    color:white;
+}
+.globalsection{
+    display: flex;
+    flex-direction: row;
+    margin-left: 40vw;
+}
+.resultados{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 10px;
+    width:23.5vw;
+    height: 15vh;
+    background-color: black;
+    border-radius: 15px 15px 0px 0px ;
+}
+table{
+    width: 25vw;
+    height: 65vh;
+    background-color: gray;
+    padding: 3px;
+    border-radius: 15px;
+}
+table, td{
+    border:0.5px solid lightslategray;
+    
+}
+.screen{
+    padding-top: 20px;
+    text-align:end;
+    background-color: whitesmoke;
+    font-size: 40px;
+    border-radius: 8px;
+}
+.key{
+    background-color: lightgray;
+    border-radius: 8px;
+}
+.operator{
+    background-color:teal;
+}
+.key:active {
+    background-color: orange;
+    box-shadow: 0 5px #666;
+    transform: translateY(2px);
+    }
+
