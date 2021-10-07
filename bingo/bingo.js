@@ -1,114 +1,118 @@
-function juegobingo(){
+/* eslint-disable no-alert */
+function juegobingo() {
+  let jugador = prompt("Hola!, Introduzca un nombre de usuario.");
+  if (jugador === null || jugador === "") {
+    jugador = "Anonimo";
+  }
 
-    let jugador=prompt('Hola!, Introduzca un nombre de usuario.');
-        if(jugador==null||jugador==''){
-            jugador='Anonimo';
-        }
-    
-    let isX= (n)=> n=='x';
-        
-        cartones();
-    
-    function cartones(){
+  const isX = (n) => n === "x";
 
-    let numRandoms=[];
-        do{
-            let n=Math.floor(Math.random()*50)+1;
-            if(numRandoms.includes(n)==false){
-            numRandoms.push(n);
-            }
+  // eslint-disable-next-line no-use-before-define
+  cartones();
 
-        }while(numRandoms.length<15);
+  function cartones() {
+    const numRandoms = [];
+    do {
+      const n = Math.floor(Math.random() * 50) + 1;
+      if (numRandoms.includes(n) === false) {
+        numRandoms.push(n);
+      }
+    } while (numRandoms.length < 15);
 
-        let linea1= numRandoms.slice(0,5);
-        let linea2=numRandoms.slice(5,10);
-        let linea3=numRandoms.slice(10,15);
-        
+    const linea1 = numRandoms.slice(0, 5);
+    const linea2 = numRandoms.slice(5, 10);
+    const linea3 = numRandoms.slice(10, 15);
 
-        carton=[linea1, linea2, linea3];
-        console.table(carton);
+    const carton = [linea1, linea2, linea3];
+    console.table(carton);
 
-        let cartonOK=confirm('Si esta de acuerdo con el carton generado pulse: Aceptar, Si desea generar otro, pulse:Cancelar');
-        if(!cartonOK){
-            cartones();
-        }
-        else{
-            partida();
-        }
-    
-    
-    function partida(){
-        alert('Bienvenido al Bingo!, su puntaje sera decidido a partir de la resta de turnos que le tome completar su carton al puntaje total por bingo, Suerte!');
+    // eslint-disable-next-line no-restricted-globals
+    const cartonOK = confirm(
+      "Si esta de acuerdo con el carton generado pulse: Aceptar, Si desea generar otro, pulse:Cancelar"
+    );
+    if (!cartonOK) {
+      cartones();
+    } else {
+      // eslint-disable-next-line no-use-before-define
+      partida();
+    }
 
-        let players=[{name:'Arthas', turns:28,},{name:'Illidan', turns:33,},{name:'kaelthas', turns:60,},{name:'guldan', turns:70,}];
-        let turnos=[];
-        let bomboUsed=[];
-        let numeroSacado;
-        let linea=[];
+    function partida() {
+      alert(
+        "Bienvenido al Bingo!, su puntaje sera decidido a partir de la resta de turnos que le tome completar su carton al puntaje total por bingo, Suerte!"
+      );
 
-        do{
-            let numRandom=Math.floor(Math.random()*50)+1;
-            if(!bomboUsed.includes(numRandom)){
-                numeroSacado=confirm('El numero sacado es: '+numRandom+'. ¿Desea continuar con este número?');
-                if(numeroSacado){
-                    for(let i=0; i<carton.length;i++){
-                        for(let j=0; j<carton[i].length; j++){
-                            if(carton[i][j]===numRandom){
-                                carton[i][j]='x';
-                                console.log(typeof(carton[i][j]));
+      const players = [
+        { name: "Arthas", turns: 28 },
+        { name: "Illidan", turns: 33 },
+        { name: "kaelthas", turns: 60 },
+        { name: "guldan", turns: 70 },
+      ];
+      const turnos = [];
+      const bomboUsed = [];
+      let numeroSacado;
+      const linea = [];
 
-                                                   
-                            }
-                            if(carton[i].every(isX) && linea.length==0){
-                                alert('Ha cantando LINEA!!!!!');
-                                linea.push('1');  
-                                 
-                            } 
-                        }
-                          
-                    }
-                    
-                bomboUsed.push(numRandom);
+      do {
+        const numRandom = Math.floor(Math.random() * 50) + 1;
+        if (!bomboUsed.includes(numRandom)) {
+          // eslint-disable-next-line no-restricted-globals
+          numeroSacado = confirm(
+            `El numero sacado es: ${numRandom}. ¿Desea continuar con este número?`
+          );
+          if (numeroSacado) {
+            for (let i = 0; i < carton.length; i++) {
+              for (let j = 0; j < carton[i].length; j++) {
+                if (carton[i][j] === numRandom) {
+                  carton[i][j] = "x";
+                  console.log(typeof carton[i][j]);
                 }
-                
-                console.table(carton);
-                turnos.push(1);
+                if (carton[i].every(isX) && linea.length === 0) {
+                  alert("Ha cantando LINEA!!!!!");
+                  linea.push("1");
+                }
+              }
             }
 
-        }while(!((carton.flat()).every(isX)));
+            bomboUsed.push(numRandom);
+          }
 
-        //puntaje
-        if((carton.flat()).every(isX)){
-            alert('BINGO!!!!');
-            let puntajeJugador={name:jugador, turns:turnos.length,}
-            players.push(puntajeJugador);
-
-            for(let i=0;i<players.length;i++){
-                players[i].puntos=300-(players[i].turns);
-
-            }
-            players.sort(function(a,b){return b.puntos-a.puntos});
-            console.log('Estos son los ranking de esta partida:')
-            for(let i=0; i<players.length; i++){
-                console.log('Nombre: '+players[i].name+', su puntuación ha sido '+ players[i].puntos);
-            }
+          console.table(carton);
+          turnos.push(1);
         }
+      } while (!carton.flat().every(isX));
 
-        let nuevapartida=confirm('¿Desea jugar otra partida?');
-    if(nuevapartida){
+      // puntaje
+      if (carton.flat().every(isX)) {
+        // eslint-disable-next-line no-alert
+        alert("BINGO!!!!");
+        const puntajeJugador = { name: jugador, turns: turnos.length };
+        players.push(puntajeJugador);
+
+        for (let i = 0; i < players.length; i++) {
+          players[i].puntos = 300 - players[i].turns;
+        }
+        players.sort((a, b) => b.puntos - a.puntos);
+        console.log("Estos son los ranking de esta partida:");
+        for (let i = 0; i < players.length; i++) {
+          console.log(
+            `Nombre: ${players[i].name}, su puntuación ha sido ${players[i].puntos}`
+          );
+        }
+      }
+
+      // eslint-disable-next-line no-restricted-globals
+      const nuevapartida = confirm("¿Desea jugar otra partida?");
+      if (nuevapartida) {
         juegobingo();
-    }
-    else{
+      } else {
+        // eslint-disable-next-line no-use-before-define
         adios();
-        
+      }
     }
-
-}
-
-}
-function adios(){
-    console.log('Muchas gracias por jugar, Hasta Luego!');
-}
+  }
+  function adios() {
+    console.log("Muchas gracias por jugar, Hasta Luego!");
+  }
 }
 juegobingo();
-
